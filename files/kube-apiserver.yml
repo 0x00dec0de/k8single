@@ -24,6 +24,7 @@ spec:
     - --basic-auth-file=/etc/kubernetes/ssl/apiserver/basicauth.pass
     - --service-account-key-file=/etc/kubernetes/ssl/apiserver/apiserver-key.pem
     - --runtime-config=extensions/v1beta1=true,extensions/v1beta1/networkpolicies=true
+    - --storage-backend=etcd2
     ports:
     - containerPort: 6443
       hostPort: 6443
