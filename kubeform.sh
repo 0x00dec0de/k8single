@@ -28,7 +28,15 @@ mkdir -p ${KEYSDIR}
 sed "s/__PUBLICIP__/${NODE_IP}/g" files/40-listen-address.conf  > /tmp/40-listen-address.conf 
 sudo mv /tmp/40-listen-address.conf  /etc/systemd/system/etcd2.service.d/40-listen-address.conf
 
+# remove the coreos dropin
+ETCD_DROPIN_FILE="/run/systemd/system/etcd2.service.d/20-cloudinit.conf"
+if [ -f "$ETCD_DROPIN_FILE" ]
+    then 
+        sudo rm "$ETCD_DROPIN_FILE"
+fi 
+
 echo "starting etcd..."
+sudo systemctl daemon-reload
 sudo systemctl start etcd2
 sudo systemctl enable etcd2
 
